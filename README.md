@@ -22,9 +22,7 @@
 
 ## 👤游客访问
 
-<p align="center">
-   <img alingn="center" src="https://profile-counter.glitch.me/wjf0214-ql-script/count.svg"  alt="ql-script"/>
- </p>
+[![游客访问](https://profile-counter.glitch.me/wjf0214-ql-script/count.svg)](https://profile-counter.glitch.me/wjf0214-ql-script/count.svg)
 
 ## 🖥️Star History
 

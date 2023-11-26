@@ -20,6 +20,7 @@ import time
 import random
 import string
 import hashlib
+import msg as notify
 
 from urllib.parse import unquote
 
@@ -56,11 +57,11 @@ def sign_in(cookie):
                 msg = f"{response.get('message')} --- 恭喜获得 {response.get('data').get('total')} {response.get('data').get('credit')} , 本月签到共 {response.get('data').get('month_days')} 天，总共签到 {response.get('data').get('days')} 天"
             else:
                 msg = f"{response.get('message')} --- 累计获得 {response.get('data').get('total')} {response.get('data').get('credit')} , 本月签到共 {response.get('data').get('month_days')} 天，总共签到 {response.get('data').get('days')} 天"
-            print(msg)
+            notify.info_message(msg)
         else:
-            print(f"签到失败！--- {response.get('message')}")
+            notify.error_message(f"签到失败！--- {response.get('message')}")
     except Exception as err:
-        print(f"Unexpected {err=}, {type(err)=}")
+        notify.error_message(f"Unexpected {err=}, {type(err)=}")
 
 
 # 获取环境变量
@@ -114,17 +115,18 @@ def main():
     get_env()
 
     if not ck_list:
-        print('没有获取到cookie。')
+        notify.error_message('没有获取到cookie。')
         return
 
-    print(f'获取到{len(ck_list)}个账号！')
+    notify.info_message(f'获取到{len(ck_list)}个账号！')
 
     for index, ck in enumerate(ck_list):
-        print(f'*****第{index + 1}个账号*****')
+        notify.info_message(f'*****第{index + 1}个账号*****')
         # 签到
         sign_in(ck)
 
 
 if __name__ == '__main__':
+    notify.init()
     main()
-    sys.exit()
+    notify.send_notify("IT天空 每日签到")
